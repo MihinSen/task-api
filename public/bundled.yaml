@@ -1,1 +1,90 @@
+openapi: 3.0.3
+info:
+  title: Task API
+  version: "1.0.0"
+servers:
+  - url: /
+paths:
+  /tasks/{id}:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        description: Task ID
+        schema:
+          type: integer
+          format: int32
+    get:
+      summary: Get a single task by ID
+      operationId: getTaskById
+      responses:
+        "200":
+          description: Task found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Task"
+              examples:
+                success:
+                  value:
+                    id: 1
+                    title: "Buy groceries"
+                    completed: false
+        "400":
+          description: Validation error (ID must be a number)
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ValidationError"
+              examples:
+                badId:
+                  value:
+                    error: "Validation failed"
+                    details: ["ID must be a number"]
+        "404":
+          description: Task not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/NotFoundError"
+              examples:
+                notFound:
+                  value:
+                    error: "Task not found"
+components:
+  schemas:
+    Task:
+      type: object
+      required: [id, title, completed]
+      properties:
+        id:
+          type: integer
+          format: int32
+          example: 1
+        title:
+          type: string
+          example: "Buy groceries"
+        completed:
+          type: boolean
+          example: false
+    ValidationError:
+      type: object
+      required: [error, details]
+      properties:
+        error:
+          type: string
+          example: "Validation failed"
+        details:
+          type: array
+          items:
+            type: string
+          example:
+            - "ID must be a number"
+    NotFoundError:
+      type: object
+      required: [error]
+      properties:
+        error:
+          type: string
+          example: "Task not found"
 
