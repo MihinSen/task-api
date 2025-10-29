@@ -1,9 +1,8 @@
-// src/routes/taskRoutes.js
 import { Router } from "express";
 
 const router = Router();
 
-// Temporary in-memory data (replace with DB later if needed)
+// Temporary in-memory data (OK for this assignment)
 const tasks = [
   { id: 1, title: "Buy groceries", completed: false },
   { id: 2, title: "Finish homework", completed: true },
@@ -37,3 +36,4 @@ router.get("/:id", (req, res) => {
 });
 
 export default router;
+
