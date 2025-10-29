@@ -9,6 +9,7 @@
     "migrate:dev": "npx prisma migrate dev",
     "migrate:deploy": "npx prisma migrate deploy",
     "seed": "node prisma/seed.js"
+    "bundle:openapi": "redocly bundle docs/openapi.yaml -o public/bundled.yaml",
   },
   "keywords": [
     "node",
